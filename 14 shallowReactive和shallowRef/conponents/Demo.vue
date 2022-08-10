@@ -1,4 +1,7 @@
 <template>
+  <h2>当前的x值是:{{ x.y }}</h2>
+  <button @click="x.y++">点击我x+1</button>
+  <hr />
   <h2>{{ job.j1.salary + "--" + sum + "--" + name }}</h2>
   <hr />
   <h2>当前求和为：{{ sum }}</h2>
@@ -14,21 +17,18 @@
 </template>
 
 <script>
-import {
-  reactive,
-  toRef,
-  toRefs,
-  shallowReactive,
-  ref,
-  shallowRef,
-  readonly,
-  shallowReadonly,
-} from "vue";
+import { reactive, toRef, toRefs, shallowReactive, ref, shallowRef } from "vue";
 
 export default {
   name: "App",
   setup() {
-    let person = reactive({
+    // let x = ref({
+    let x = shallowRef({
+      y: 0,
+    });
+
+    // let person = reactive({
+    let person = shallowReactive({
       sum: 0,
       name: "李宪来",
       job: {
@@ -38,11 +38,13 @@ export default {
         },
       },
     });
-    //让原来的响应式数据不可更改
-    person = shallowReadonly(person);
 
     return {
       ...toRefs(person),
+      x,
+      // sum: toRef(person, "sum"),
+      // name: toRef(person, "name"),
+      // salary: toRef(person.job.j1, "salary"),
     };
   },
 };
