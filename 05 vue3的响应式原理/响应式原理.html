@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      // 元数据
+      let person = {
+        name: "张三",
+        age: 18,
+      };
+
+      // 模拟Vue2实现响应式
+      let p = {};
+      Object.defineProperty(p, "name", {
+        // 允许用delete person.name删除属性
+        configurable: true,
+        get() {
+          return person.name;
+        },
+        set(value) {
+          console.log(`有人修改了${value}属性，我发现了，要去更新界面`);
+          person.name = value;
+        },
+      });
+
+      // 模拟Vue3实现响应式
+      //   const p = new Proxy(person, {
+      //     // 新增或修改
+      //     set(target, propName, value) {
+      //       console.log(`有人修改/新增了p身上的${propName}属性`);
+      //       target[propName] = value;
+      //     },
+      //     // 读取
+      //     get(target, propName) {
+      //       console.log(`有人读取了p身上的${propName}属性`);
+      //       return target.propName;
+      //     },
+      //     // 删除
+      //     deleteProperty(target, propName) {
+      //       console.log(`有人删除了p身上的${propName}属性`);
+      //       return delete target[propName];
+      //     },
+      //   });
+    </script>
+  </body>
+</html>
