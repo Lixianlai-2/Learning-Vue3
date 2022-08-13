@@ -24,14 +24,17 @@ export default {
     // vue3计算属性的完整写法
     person.fullName = computed({
       set(value) {
-        const nameArr = value.split("-");
-        person.firstName = nameArr[0];
-        person.lastName = nameArr[1];
+        console.log(`set函数中的参数value是什么？   `, value);
+        [person.firstName, person.lastName] = value.split("-");
       },
       get() {
+        console.log(`调用了getter`);
         return person.firstName + "-" + person.lastName;
       },
     });
+
+    // 这里才再进行setter的设置，会传入value给set函数
+    person.fullName = "li-xiao";
 
     return {
       person,
